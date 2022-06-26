@@ -47,7 +47,7 @@ void print_ethernet_frame(EthernetFrame *ethernet_frame)
     printf("Packet type ID field  %#x (%s)\n", protocol, protocol_str);
 
     void *ethernet_payload = NULL;
-    uint16_t ethernet_payload_size = EthernetFrame_get_payload(ethernet_frame, ethernet_payload);
+    uint16_t ethernet_payload_size = EthernetFrame_get_payload(ethernet_frame, &ethernet_payload);
 
     switch (protocol)
     {

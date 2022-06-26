@@ -16,6 +16,6 @@ void EthernetFrame_build(EthernetFrame *frame, void *data, uint16_t size);
 uint16_t EthernetFrame_get_protocol(EthernetFrame *frame);
 uint8_t* EthernetFrame_get_source_mac(EthernetFrame *frame);
 uint8_t* EthernetFrame_get_destination_mac(EthernetFrame *frame);
-uint16_t EthernetFrame_get_payload(EthernetFrame *frame, void *result);
+uint16_t EthernetFrame_get_payload(EthernetFrame *frame, void **result);
 
 #endif /* __NET_TOOLS_ETHERNET_FRAME_H__ */

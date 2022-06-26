@@ -66,8 +66,8 @@ uint8_t* EthernetFrame_get_destination_mac(EthernetFrame *frame)
     return frame->header->h_dest;
 }
 
-uint16_t EthernetFrame_get_payload(EthernetFrame *frame, void *result)
+uint16_t EthernetFrame_get_payload(EthernetFrame *frame, void **result)
 {
-    result = frame->payload;
+    *result = frame->payload;
     return frame->payload_size;
 }
