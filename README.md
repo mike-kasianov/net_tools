@@ -1,0 +1,1 @@
+make snf && sudo ./_build/sn
