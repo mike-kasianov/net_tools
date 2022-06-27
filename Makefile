@@ -24,7 +24,7 @@ snf: clean
 	@${CC} ${CFLAGS} \
 		src/sniffer/sniffer_socket.c \
 		src/sniffer/ethernet_frame.c \
-		src/sniffer/ip_packet.c \
+		src/sniffer/ip_v4_packet.c \
 		src/sniffer/humanize.c \
 		src/sniffer/main.c -o ${BUILD_DIR}/snf
 

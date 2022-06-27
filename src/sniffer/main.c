@@ -1,6 +1,6 @@
 #include "sniffer_socket.h"
 #include "ethernet_frame.h"
-#include "ip_packet.h"
+#include "ip_v4_packet.h"
 #include "humanize.h"
 
 #include <stdio.h>
@@ -14,19 +14,21 @@ void print_packet(void *data, uint16_t size, uint32_t packet_id)
     printf("Packet #%d (%d bytes read)\n", packet_id, size);
 }
 
-void print_ip_packet(IpPacket *ip_packet)
+void print_ip_packet(IpV4Packet *ip_packet)
 {
     printf("==IP_HEADER==================================\n");
     uint8_t a = ip_packet->header->version;
     printf("IP version            %d\n", a);
+    printf("IP header length      %d\n", IpPacket_get_header_length(ip_packet));
+    printf("TOS                   %d\n", IpPacket_get_type_of_service(ip_packet));
 
 
     char ip_source_str[IPV4_STRING_LENGTH];
-    humanize_ip_address(IpPacket_get_source_ip(ip_packet), ip_source_str);
+    humanize_ip_v4_address(IpPacket_get_source_address(ip_packet), ip_source_str);
     printf("IP source             %s\n", ip_source_str);
 
     char ip_destination_str[IPV4_STRING_LENGTH];
-    humanize_ip_address(IpPacket_get_destination_ip(ip_packet), ip_destination_str);
+    humanize_ip_v4_address(IpPacket_get_destination_address(ip_packet), ip_destination_str);
     printf("IP destination        %s\n", ip_destination_str);
 }
 
@@ -52,7 +54,7 @@ void print_ethernet_frame(EthernetFrame *ethernet_frame)
     switch (protocol)
     {
     case ETH_P_IP:
-        IpPacket ip_packet;
+        IpV4Packet ip_packet;
         IpPacket_build(&ip_packet, ethernet_payload, ethernet_payload_size);
         print_ip_packet(&ip_packet);
         break;
