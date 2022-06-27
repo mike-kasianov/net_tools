@@ -19,16 +19,16 @@ void print_ip_packet(IpV4Packet *ip_packet)
     printf("==IP_HEADER==================================\n");
     uint8_t a = ip_packet->header->version;
     printf("IP version            %d\n", a);
-    printf("IP header length      %d\n", IpPacket_get_header_length(ip_packet));
-    printf("TOS                   %d\n", IpPacket_get_type_of_service(ip_packet));
+    printf("IP header length      %d\n", IpV4Packet_get_header_length(ip_packet));
+    printf("TOS                   %d\n", IpV4Packet_get_type_of_service(ip_packet));
 
 
     char ip_source_str[IPV4_STRING_LENGTH];
-    humanize_ip_v4_address(IpPacket_get_source_address(ip_packet), ip_source_str);
+    humanize_ip_v4_address(IpV4Packet_get_source_address(ip_packet), ip_source_str);
     printf("IP source             %s\n", ip_source_str);
 
     char ip_destination_str[IPV4_STRING_LENGTH];
-    humanize_ip_v4_address(IpPacket_get_destination_address(ip_packet), ip_destination_str);
+    humanize_ip_v4_address(IpV4Packet_get_destination_address(ip_packet), ip_destination_str);
     printf("IP destination        %s\n", ip_destination_str);
 }
 
@@ -55,7 +55,7 @@ void print_ethernet_frame(EthernetFrame *ethernet_frame)
     {
     case ETH_P_IP:
         IpV4Packet ip_packet;
-        IpPacket_build(&ip_packet, ethernet_payload, ethernet_payload_size);
+        IpV4Packet_build(&ip_packet, ethernet_payload, ethernet_payload_size);
         print_ip_packet(&ip_packet);
         break;
     default:
