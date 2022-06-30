@@ -6,13 +6,13 @@
 // #include <sys/socket.h>
 #include <sys/ioctl.h>
 #include <netinet/in.h>
-#include <linux/if.h>
+// #include <linux/if.h>
 #include <linux/if_ether.h>
 #include <unistd.h>
 
 #include <net/if.h>
 #include <linux/if_packet.h>
-#include <net/ethernet.h>
+// #include <net/ethernet.h>
 
 struct _SnifferSocket
 {
@@ -49,7 +49,12 @@ SnifferSocket* SnifferSocket_open(char *network_interface)
 
     int ifindex = if_nametoindex(network_interface);
     struct sockaddr_ll sock_addr = {.sll_family = AF_PACKET, .sll_protocol = ETH_P_ALL, .sll_ifindex = ifindex };
-    bind(fd, (struct sockaddr *) &sock_addr, sizeof(struct sockaddr_ll));
+    if(bind(fd, (struct sockaddr *) &sock_addr, sizeof(struct sockaddr_ll)) < 0)
+    {
+        perror("bind() failed");
+        close(fd);
+        exit(-1);
+    }
 
 // TODO remove calloc
     SnifferSocket *sock = calloc(1, sizeof(SnifferSocket));
