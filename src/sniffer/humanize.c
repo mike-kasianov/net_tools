@@ -39,7 +39,7 @@ void humanize_mac_address(uint8_t mac_address[ETH_ALEN], char *result)
 
 void humanize_ip_v4_address(uint32_t ip_address, char *result)
 {
-    struct in_addr source_address = {.s_addr = ip_address};
+    struct in_addr source_address = {.s_addr = ntohl(ip_address)};
     char addr_str[INET_ADDRSTRLEN];
     inet_ntop(AF_INET, &source_address, addr_str, INET_ADDRSTRLEN);
     strcpy(result, addr_str);
